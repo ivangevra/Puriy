@@ -10,7 +10,7 @@ import baked from './demo-corridor.json';
 import { DESTINATIONS, type Destination } from './destinations';
 import { DAYS, HOURS, detourSpeed, level, usualSpeed } from './traffic-model';
 import { evaluate, fixedPlan, optimize, signalState, type Plan, type Site } from './signal-timing';
-import { arrivals, createSim, type LabDemand, type LabSim } from './adaptive-signals';
+import { JEV_LATENCY, LLM_LATENCY, arrivals, createSim, miniCrossing, type LabDemand, type LabSim } from './adaptive-signals';
 
 const num1 = (v: number) => (Math.round(v * 10) / 10).toLocaleString('es-PE');
 import {
@@ -63,6 +63,9 @@ const poly = (ring: Coord[], properties: Props): DemoFeature => ({
   geometry: { type: 'Polygon', coordinates: [ring] },
   properties,
 });
+
+/** Start (s) of each step of the adaptive signals demo: idea, why Jev, traffic. */
+export const LAB_ACTS = [0, 16, 36];
 
 export const TRAFFIC = { ok: '#2f9e6b', slow: '#d99a2b', jam: '#c9423d', alt: '#275cba' };
 export const SEARCH = { dijkstra: '#3b82f6', astar: '#8b5cf6', illegal: '#c9423d', path: '#f59e0b' };
@@ -1116,34 +1119,44 @@ export function createScenarios(
       };
     },
   });
-  // Future prototype: adaptive control of the four signals of one block,
+  // Future prototype: adaptive control of the four signals of one block.
+  // Three steps: (1) the idea on a single crossing, adaptive against a fixed
+  // clock; (2) why response speed matters, Jev against a general language
+  // model, both on the same scripted crossing (miniCrossing); (3) the block
   // simulated vehicle by vehicle next to a fixed-time plan with the same
   // arrivals (adaptive-signals.ts). The simulation only moves forward; going
   // back in time or changing the inputs starts it again from zero.
   {
     const SPEED = 2; // simulated seconds per demo second
+    const [, WHY, TRAFFIC] = LAB_ACTS;
     let lab: { key: string; j: LabSim; a: LabSim; f: LabSim } | null = null;
     scenarios.push({
       id: 'adaptativo',
       title: 'Semáforos adaptativos: con y sin Jev',
       slide: 'Prototipo · a futuro',
-      duration: 90,
+      duration: TRAFFIC + 90,
       bounds: ALL,
       stage: 'lab',
       captions: [
-        [0, 'Prototipo a futuro: la misma manzana y los mismos vehículos, con Jev (izquierda) y sin Jev (derecha).'],
-        [7, 'Con Jev: cada segundo se envía el estado del cruce en JSON y una pregunta de opción: extender o cambiar.'],
-        [20, 'Jev devuelve la opción con su probabilidad en menos de medio segundo; si duda, decide la regla.'],
-        [34, 'Sin Jev: una regla fija corta el verde cuando la calle se vacía o la otra acumula más espera.'],
-        [48, 'Ambos pasan por la misma capa de seguridad: verde mínimo, ámbar, todo rojo y verde máximo.'],
-        [62, 'Frente al tiempo fijo, ambos esperan menos; cuál de los dos gana depende de la demanda.'],
-        [76, 'Aquí Jev está simulado: medir el modelo real requiere clave de acceso, detectores y validación municipal.'],
+        [0, 'Un semáforo de tiempo fijo cambia por reloj, aunque la calle con verde esté vacía y la otra tenga cola.'],
+        [6, 'Uno adaptativo mira la calle cada segundo y decide: seguir en verde o cambiar. La cola dura menos.'],
+        [11, 'Para decidir cada segundo, la respuesta tiene que llegar en menos de un segundo.'],
+        [WHY, 'Un modelo de lenguaje general, como ChatGPT o Claude, redacta su respuesta en texto: con consultas grandes tarda segundos.'],
+        [WHY + 7, 'Jev solo elige entre opciones (seguir o cambiar) y devuelve una probabilidad; TypeSafe informa entre 70 y 500 ms.'],
+        [WHY + 13, 'Si la respuesta llega tarde, el semáforo decide con datos viejos y la cola crece. Tiempos ilustrativos.'],
+        [TRAFFIC, 'En el tráfico: la misma manzana y los mismos vehículos, con Jev (izquierda) y sin Jev (derecha).'],
+        [TRAFFIC + 8, 'Con Jev: cada segundo se envía el estado del cruce en JSON y una pregunta de opción: seguir o cambiar.'],
+        [TRAFFIC + 20, 'Los globos muestran cada respuesta y su probabilidad; si Jev duda, decide la regla.'],
+        [TRAFFIC + 34, 'Sin Jev: una regla fija corta el verde cuando la calle se vacía o la otra acumula más espera.'],
+        [TRAFFIC + 48, 'Ambos pasan por la misma capa de seguridad: verde mínimo, ámbar, todo rojo y verde máximo.'],
+        [TRAFFIC + 62, 'Frente al tiempo fijo, ambos esperan menos; cuál de los dos gana depende de la demanda.'],
+        [TRAFFIC + 76, 'Aquí Jev está simulado: medir el modelo real requiere clave de acceso, detectores y validación municipal.'],
       ],
       frame(t, input) {
         const demand = input.labDemand ?? 'normal',
           priority = !!input.labPriority;
         const key = `${demand}-${priority}`;
-        const T = Math.max(0, t) * SPEED;
+        const T = Math.max(0, t - TRAFFIC) * SPEED;
         if (!lab || lab.key !== key || lab.a.time > T + 0.3) {
           const list = arrivals(demand);
           lab = {
@@ -1154,11 +1167,18 @@ export function createScenarios(
           };
         }
         for (const sim of [lab.j, lab.a, lab.f]) sim.step(T);
+        const act = t < WHY ? 0 : t < TRAFFIC ? 1 : 2;
+        const local = act === 0 ? t : t - WHY;
         return {
           features: [],
           caption: captionAt(this.captions, t),
           hud: {
-            clock: `Reloj ${Math.floor(T)} s · ×${SPEED}`,
+            act,
+            clock: act === 2 ? `Reloj ${Math.floor(T)} s · ×${SPEED}` : `Paso ${act + 1} de 3`,
+            ...(act < 2 && {
+              left: miniCrossing({ kind: 'ask', latency: JEV_LATENCY }, local),
+              right: miniCrossing(act === 0 ? { kind: 'fixed', period: 10 } : { kind: 'ask', latency: LLM_LATENCY }, local),
+            }),
             jev: lab.j.snapshot(),
             adaptive: lab.a.snapshot(),
             fixed: lab.f.snapshot(),

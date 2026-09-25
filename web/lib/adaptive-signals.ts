@@ -113,7 +113,8 @@ export function arrivals(demand: LabDemand, until = 240, seed = 7): Arrival[] {
 
 type Vehicle = { id: number; path: number; kind: Kind; s: number; v: number; wait: number };
 type Signal = { phase: Axis; stage: 'green' | 'amber' | 'allRed'; t: number };
-export type LogEntry = { t: number; node: string; text: string; forced?: boolean; fallback?: boolean };
+/** `short`: rótulo breve que se dibuja junto al cruce en la animación. */
+export type LogEntry = { t: number; node: string; text: string; short: string; forced?: boolean; fallback?: boolean };
 /** Latencia simulada de una consulta a Jev (TypeSafe informa 70–500 ms). */
 export const JEV_LATENCY = 0.4;
 export const JEV_MIN_CONFIDENCE = 0.6;
@@ -158,8 +159,8 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
   const series: number[] = [];
   const weight = (k: Kind) => (priority ? KINDS[k].people : 1);
 
-  const say = (node: number, text: string, isForced = false, fallback = false) => {
-    log.unshift({ t: Math.round(time), node: NODES[node], text, forced: isForced, fallback });
+  const say = (node: number, text: string, short: string, isForced = false, fallback = false) => {
+    log.unshift({ t: Math.round(time), node: NODES[node], text, short, forced: isForced, fallback });
     if (log.length > 60) log.pop();
   };
 
@@ -256,7 +257,7 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
     const pct = `${Math.round(probability * 100)} %`;
     if (fallback) {
       fallbacks++;
-      say(i, `confianza baja (${pct}): decide la regla`, false, true);
+      say(i, `confianza baja (${pct}): decide la regla`, 'duda: regla', false, true);
       return decideRules(i, sg);
     }
     if (change) {
@@ -265,11 +266,11 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
         : red.espera_max_s > 20
           ? `alguien espera ${red.espera_max_s} s`
           : `${red.vehiculos_detenidos} detenidos, llegan ${green.llegan_10s}`;
-      say(i, `Choice: ${options[1]} (${pct}) · ${why}`);
+      say(i, `Choice: ${options[1]} (${pct}) · ${why}`, `cambiar · ${pct}`);
       jevDue[i] = time + JEV_LATENCY;
     } else if (time - lastNote[i] >= 6) {
       lastNote[i] = time;
-      say(i, `Choice: ${options[0]} (${pct}) · llegan ${green.llegan_10s} en 10 s`);
+      say(i, `Choice: ${options[0]} (${pct}) · llegan ${green.llegan_10s} en 10 s`, `seguir · ${pct}`);
     }
     return false;
   };
@@ -282,7 +283,7 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
     if (sg.t >= SAFETY.maxGreen) {
       if (approach(i, other).load > 0) {
         forced++;
-        say(i, `verde máximo (${SAFETY.maxGreen} s): pasa a ${name(other)}`, true);
+        say(i, `verde máximo (${SAFETY.maxGreen} s): pasa a ${name(other)}`, 'verde máximo', true);
         return true;
       }
       return false;
@@ -296,16 +297,16 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
       red = approach(i, other);
     if (red.load === 0) return false;
     if (green.coming === 0) {
-      say(i, `${name(sg.phase)} sin vehículos: pasa a ${name(other)} tras ${Math.round(sg.t)} s`);
+      say(i, `${name(sg.phase)} sin vehículos: pasa a ${name(other)} tras ${Math.round(sg.t)} s`, 'cambia');
       return true;
     }
     if (red.load > green.load + 4) {
-      say(i, `${name(other)} acumula más espera (${Math.round(red.load)} frente a ${Math.round(green.load)}): cambia`);
+      say(i, `${name(other)} acumula más espera (${Math.round(red.load)} frente a ${Math.round(green.load)}): cambia`, 'cambia');
       return true;
     }
     if (control !== 'jev' && time - lastNote[i] >= 6) {
       lastNote[i] = time;
-      say(i, `extiende verde ${name(sg.phase)}: llegan ${green.coming}`);
+      say(i, `extiende verde ${name(sg.phase)}: llegan ${green.coming}`, 'sigue');
     }
     return false;
   }
@@ -464,6 +465,7 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
         });
       });
       return {
+        time,
         vehicles,
         signals: signals.map((s) => ({ phase: s.phase, stage: s.stage, t: s.t })),
         metrics: metrics(),
@@ -477,3 +479,133 @@ export function createSim(control: 'jev' | 'adaptive' | 'fixed', list: Arrival[]
 
 export type LabSim = ReturnType<typeof createSim>;
 export type LabSnapshot = ReturnType<LabSim['snapshot']>;
+
+// Explicación previa (pasos 1 y 2 de la demo): un solo cruce de dos calles,
+// guionado para que se vea la idea sin ruido. La demanda cambia de calle cada
+// 7 s. Dos formas de controlar:
+// - `fixed`: cambia por reloj cada `period` segundos.
+// - `ask`: cada segundo mira la calle y pregunta «seguir o cambiar»; la
+//   respuesta tarda `latency` segundos y mientras tanto no se vuelve a preguntar.
+// Sirve para mostrar por qué importa la velocidad de respuesta. Tiempos
+// ilustrativos: no son mediciones de Jev ni de ningún modelo de lenguaje.
+
+/** Metros hasta la línea de pare y desde ella hasta la salida de la vista;
+ * `gap`: metros libres entre un vehículo y el de adelante al detenerse. */
+export const MINI = { stop: 45, after: 45, gap: 2, speed: 8, minGreen: 2, maxGreen: 20, amber: 1.5, near: 40 };
+/** Latencia ilustrativa de un modelo de lenguaje general que redacta su respuesta. */
+export const LLM_LATENCY = 5;
+export type MiniControl = { kind: 'fixed'; period: number } | { kind: 'ask'; latency: number };
+export type MiniQuery = { asked: number; due: number; change: boolean };
+/** Mezcla fija de vehículos del cruce guionado, en orden de llegada. */
+const MINI_MIX: Kind[] = ['auto', 'micro', 'auto', 'mototaxi', 'moto', 'auto', 'mototaxi', 'auto', 'micro', 'moto'];
+
+function miniArrivals(until: number) {
+  // Calle con más demanda: N-S en ventanas pares de 7 s, E-O en las impares.
+  const heavy = (t: number): Axis => (Math.floor(t / 7) % 2 ? 'EW' : 'NS');
+  const out: { t: number; axis: Axis }[] = [];
+  for (const axis of ['EW', 'NS'] as const)
+    for (let t = axis === 'EW' ? 1.5 : 0.3; t < until; t += heavy(t) === axis ? 1.2 : 4) out.push({ t, axis });
+  return out.sort((a, b) => a.t - b.t);
+}
+
+export function miniCrossing(control: MiniControl, until: number) {
+  const dt = 0.05;
+  const list = miniArrivals(until);
+  // Al empezar ya hay cola en la calle con rojo (N-S): un micro, un auto y un mototaxi.
+  type Car = { id: number; kind: Kind; axis: Axis; s: number; stopped: boolean };
+  const cars: Car[] = [];
+  for (const [k, kind] of (['micro', 'auto', 'mototaxi'] as const).entries()) {
+    const ahead = cars[k - 1];
+    cars.push({ id: -1 - k, kind, axis: 'NS', s: ahead ? ahead.s - KINDS[ahead.kind].length - MINI.gap : MINI.stop, stopped: true });
+  }
+  const tail = (c: Car) => c.s - KINDS[c.kind].length - MINI.gap;
+  const queued: Record<Axis, number[]> = { EW: [], NS: [] };
+  const queries: MiniQuery[] = [];
+  let phase: Axis = 'EW',
+    stage: 'green' | 'amber' = 'green',
+    st = 0,
+    next = 0,
+    lastAsk = -1,
+    waitSum = 0,
+    switches = 0,
+    time = 0,
+    // Respuesta en camino (null: ninguna).
+    pending: MiniQuery | null = null;
+  const near = (axis: Axis) =>
+    cars.filter((c) => c.axis === axis && c.s <= MINI.stop && MINI.stop - c.s < MINI.near).length + queued[axis].length;
+  for (; time < until - 1e-9; time += dt) {
+    while (next < list.length && list[next].t <= time) queued[list[next].axis].push(next++);
+    st += dt;
+    const other: Axis = phase === 'EW' ? 'NS' : 'EW';
+    if (stage === 'amber') {
+      if (st >= MINI.amber) {
+        phase = other;
+        stage = 'green';
+        st = 0;
+      }
+    } else if (control.kind === 'fixed') {
+      if (st >= control.period) {
+        stage = 'amber';
+        st = 0;
+        switches++;
+      }
+    } else if (pending) {
+      // La respuesta llega y se aplica, aunque la calle ya haya cambiado.
+      if (time >= pending.due - 1e-9) {
+        if (pending.change) {
+          stage = 'amber';
+          st = 0;
+          switches++;
+        }
+        pending = null;
+      }
+    } else if (st >= MINI.minGreen && time - lastAsk >= 1 - 1e-9) {
+      lastAsk = time;
+      const g = near(phase),
+        r = near(other);
+      pending = { asked: time, due: time + control.latency, change: r > 0 && (g === 0 || r >= g + 3 || st >= MINI.maxGreen) };
+      queries.push(pending);
+    }
+    for (const axis of ['EW', 'NS'] as const) {
+      const lane = cars.filter((c) => c.axis === axis);
+      const go = stage === 'green' && phase === axis;
+      lane.forEach((c, k) => {
+        let limit = k ? tail(lane[k - 1]) : Infinity;
+        if (!go && c.s <= MINI.stop + 1e-6) limit = Math.min(limit, MINI.stop);
+        const s = Math.max(c.s, Math.min(c.s + MINI.speed * dt, limit));
+        c.stopped = s - c.s < 0.5 * dt;
+        if (c.stopped) waitSum += dt;
+        c.s = s;
+      });
+      const last = lane[lane.length - 1];
+      if (queued[axis].length && (!last || tail(last) > 0)) {
+        const id = queued[axis].shift()!;
+        cars.push({ id, kind: MINI_MIX[id % MINI_MIX.length], axis, s: 0, stopped: false });
+      }
+      waitSum += queued[axis].length * dt;
+    }
+    for (let i = cars.length - 1; i >= 0; i--) if (cars[i].s > MINI.stop + MINI.after) cars.splice(i, 1);
+  }
+  return {
+    time,
+    cars: cars.map((c) => ({ ...c })),
+    phase,
+    stage,
+    /** Segundos para el próximo cambio (solo tiempo fijo). */
+    countdown: control.kind === 'fixed' && stage === 'green' ? Math.max(0, control.period - st) : null,
+    queries: queries.filter((q) => q.asked > time - 12).map((q) => ({ ...q })),
+    /** Segundos esperando la respuesta en curso (null: ninguna). */
+    thinking: pending ? time - pending.asked : null,
+    decisions: queries.filter((q) => q.due <= time).length,
+    waiting: { EW: near('EW'), NS: near('NS') },
+    stopped: cars.filter((c) => c.stopped).length + queued.EW.length + queued.NS.length,
+    /** Vehículos detenidos por calle (incluye los que aún no entran a la vista). */
+    queue: {
+      EW: [...cars.filter((c) => c.axis === 'EW' && c.stopped).map((c) => c.kind), ...queued.EW.map((id) => MINI_MIX[id % MINI_MIX.length])],
+      NS: [...cars.filter((c) => c.axis === 'NS' && c.stopped).map((c) => c.kind), ...queued.NS.map((id) => MINI_MIX[id % MINI_MIX.length])],
+    },
+    waitSum,
+    switches,
+  };
+}
+export type MiniSnapshot = ReturnType<typeof miniCrossing>;

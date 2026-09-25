@@ -55,8 +55,13 @@ test('descarga demos con o sin explicación y exporta el prototipo adaptativo', 
     .getByRole('button', { name: /Semáforos adaptativos/ }).click();
   await expect(page.locator('.lab-panel canvas')).toHaveCount(2);
   await clean.check();
+  // The video is recorded at the chosen speed: 1× → 2× → 4×.
+  const speedButton = page.getByRole('button', { name: 'Velocidad' });
+  await speedButton.click();
+  await speedButton.click();
+  await expect(speedButton).toHaveText('4×');
   const labDownload = page.waitForEvent('download');
   await downloadButton.click();
   await page.evaluate(() => (window as unknown as { __demoRecorder: { stop: () => void } }).__demoRecorder.stop());
-  expect((await labDownload).suggestedFilename()).toBe('puriy-demo-adaptativo-solo-video.webm');
+  expect((await labDownload).suggestedFilename()).toBe('puriy-demo-adaptativo-solo-video-x4.webm');
 });

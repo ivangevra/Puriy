@@ -13,7 +13,7 @@ const GUIDES: Record<string, string> = {
   flota: 'Relaciona la frecuencia prometida con el tiempo de ida, vuelta y regulación para estimar cuántos micros hacen falta.',
   cobertura: 'Cuenta la población y los destinos próximos a los puntos de abordaje dentro de un umbral de 400 metros.',
   desvio: 'Ante una calle cerrada, identifica abordajes afectados y busca un desvío que respete los sentidos de circulación.',
-  adaptativo: 'Compara los mismos vehículos bajo control con Jev simulado, reglas adaptativas y tiempo fijo. Los resultados son ilustrativos y no representan semáforos reales.',
+  adaptativo: 'Tres pasos: qué es un semáforo que mira la calle, por qué necesita respuestas en menos de un segundo (Jev frente a un modelo de lenguaje general) y cómo se ve en una manzana con y sin Jev. Tiempos y resultados ilustrativos.',
 };
 
 export type DemoVideoVariant = 'clean' | 'explained';
@@ -30,6 +30,8 @@ export type DemoVideoScene = {
   count: number;
   time: number;
   duration: number;
+  /** Playback speed of the recording (1 = real time). */
+  speed: number;
 };
 
 function wrappedText(
@@ -77,7 +79,6 @@ function drawVisual(ctx: CanvasRenderingContext2D, source: DemoVideoSource, x: n
   ctx.fillRect(x, y, width, height);
   const gap = 12;
   const panelWidth = (width - gap * 3) / 2;
-  const labels = ['Con Jev (simulado)', 'Sin Jev (reglas)'];
   source.canvases.forEach((canvas, index) => {
     const panelX = x + gap + index * (panelWidth + gap);
     ctx.fillStyle = '#ffffff';
@@ -90,7 +91,7 @@ function drawVisual(ctx: CanvasRenderingContext2D, source: DemoVideoSource, x: n
     ctx.restore();
     ctx.fillStyle = '#17202a';
     ctx.font = '600 17px Manrope, Arial, sans-serif';
-    ctx.fillText(labels[index], panelX + 14, y + height - gap - 13);
+    ctx.fillText(canvas.dataset.title ?? '', panelX + 14, y + height - gap - 13);
   });
 }
 
@@ -113,9 +114,9 @@ export function drawDemoVideo(
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     if (source.kind === 'map') {
-      ctx.fillText('Simulación · © OpenMapTiles · © OpenStreetMap', w - 18, h - 16);
+      ctx.fillText(`Simulación${scene.speed === 1 ? '' : ` · ×${scene.speed}`} · © OpenMapTiles · © OpenStreetMap`, w - 18, h - 16);
     } else {
-      ctx.fillText('Prototipo simulado', w - 18, h - 16);
+      ctx.fillText(`Prototipo simulado${scene.speed === 1 ? '' : ` · ×${scene.speed}`}`, w - 18, h - 16);
     }
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
@@ -182,7 +183,7 @@ export function drawDemoVideo(
   ctx.font = '17px Arial, sans-serif';
   ctx.fillText('Tiempos, GPS y tráfico son simulados para explicar el método.', 26, 672);
   ctx.textAlign = 'right';
-  ctx.fillText(`${Math.floor(scene.time)} / ${scene.duration} s`, 1254, 672);
+  ctx.fillText(`${scene.speed === 1 ? '' : `×${scene.speed} · `}${Math.floor(scene.time)} / ${scene.duration} s`, 1254, 672);
   ctx.textAlign = 'left';
   ctx.fillStyle = '#d8e6dc';
   ctx.fillRect(26, 690, 1228, 8);

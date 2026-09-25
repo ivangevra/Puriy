@@ -53,7 +53,7 @@ import { CATEGORIES, CATEGORY_ORDER, type DestinationCategory } from '../lib/des
 import { EVENT_GLYPHS, glyphMarkerSvg, markerSvg, onewayArrow, rasterize, signalLightSvg } from '../lib/place-icons';
 import { meters, type Coord } from '../lib/demo-geo';
 import { drawDemoVideo, VIDEO_HEIGHT, VIDEO_WIDTH, type DemoVideoScene, type DemoVideoSource, type DemoVideoVariant } from '../lib/demo-video';
-import { JEV_MIN_CONFIDENCE, KINDS, SAFETY, type LabDemand, type LabSnapshot } from '../lib/adaptive-signals';
+import { JEV_MIN_CONFIDENCE, KINDS, LLM_LATENCY, SAFETY, type LabDemand, type LabSnapshot } from '../lib/adaptive-signals';
 import AdaptiveStage from './AdaptiveStage';
 
 const ICONS = {
@@ -408,6 +408,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
     count: SCENARIOS.length,
     time: t,
     duration: scenario.duration,
+    speed,
   };
 
   // Clock: advances only while playing; loops or stops at the end.
@@ -416,7 +417,8 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
     let last = performance.now(),
       id = 0;
     const tick = (now: number) => {
-      const dt = Math.min(0.1, (now - last) / 1000) * (exportState === 'recording' ? 1 : speed);
+      // The video is recorded at the chosen speed too.
+      const dt = Math.min(0.1, (now - last) / 1000) * speed;
       last = now;
       setT((v) => {
         const next = v + dt;
@@ -474,6 +476,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
         count: SCENARIOS.length,
         time: 0,
         duration: scenario.duration,
+        speed,
       };
       const renderVideoFrame = () => {
         const scene = videoSceneRef.current;
@@ -496,7 +499,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
       const stream = videoCanvas.captureStream(30);
       const recorder = new MediaRecorder(stream, { mimeType: format.mime, videoBitsPerSecond: 8_000_000 });
       const chunks: Blob[] = [];
-      const filename = `puriy-demo-${scenario.id}-${videoVariant === 'clean' ? 'solo-video' : 'con-explicacion'}.${format.extension}`;
+      const filename = `puriy-demo-${scenario.id}-${videoVariant === 'clean' ? 'solo-video' : 'con-explicacion'}${speed === 1 ? '' : `-x${speed}`}.${format.extension}`;
       recordingStreamRef.current = stream;
       recorderRef.current = recorder;
       discardRecordingRef.current = false;
@@ -770,7 +773,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
               <span>Grabando {Math.min(Math.floor(t), scenario.duration)} de {scenario.duration} s · la descarga comenzará al terminar.</span>
               <progress max={scenario.duration} value={Math.min(t, scenario.duration)} />
             </output>
-          ) : <p>Se guardará en MP4 o WebM, según lo permita tu navegador. Sin audio.</p>}
+          ) : <p>Se guardará en MP4 o WebM, según lo permita tu navegador, a la velocidad elegida abajo ({num(speed, speed % 1 ? 1 : 0)}×; toca el botón de velocidad para 2× o 4×). Sin audio.</p>}
           {exportError && <p className="demos-export-error" role="alert">{exportError}</p>}
         </div>
         <nav className="demos-list" aria-label="Demostraciones">
@@ -843,7 +846,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
       </aside>
       <div className="demos-stage">
         <div ref={container} className="demos-map" style={{ position: 'absolute', inset: 0 }} />
-        {scenario.stage === 'lab' && <AdaptiveStage hud={frame.hud} dark={theme === 'dark'} />}
+        {scenario.stage === 'lab' && <AdaptiveStage hud={frame.hud} dark={theme === 'dark'} onSeek={(v) => { setT(v); setPlaying(true); }} />}
         <div className="demos-badge">SIMULACIÓN · {corridor.code}</div>
         {'clock' in frame.hud && <div className="demos-clock"><Clock size={14} />{String(frame.hud.clock)}</div>}
         {pick && <div className="demos-pick">Haz clic en el mapa para colocar el {pick === 'from' ? 'origen' : 'destino'}</div>}
@@ -873,7 +876,7 @@ export default function Demos({ showThemeToggle = false }: { showThemeToggle?: b
             disabled={exportState !== 'idle'}
             onChange={(e) => { setT(Number(e.target.value)); setPlaying(false); }}
           />
-          <button type="button" className="demos-speed" aria-label="Velocidad" disabled={exportState !== 'idle'} onClick={() => setSpeed(speed === 1 ? 2 : speed === 2 ? 0.5 : 1)}>{speed}×</button>
+          <button type="button" className="demos-speed" aria-label="Velocidad" disabled={exportState !== 'idle'} onClick={() => setSpeed(speed === 1 ? 2 : speed === 2 ? 4 : speed === 4 ? 0.5 : 1)}>{speed}×</button>
           <button type="button" aria-label="Demostración siguiente" disabled={exportState !== 'idle'} onClick={() => go(index + 1)}><ChevronRight size={18} /></button>
           <button type="button" aria-label={full ? 'Salir de pantalla completa' : 'Pantalla completa'} disabled={exportState !== 'idle'} onClick={toggleFull}>{full ? <Minimize2 size={16} /> : <Maximize2 size={16} />}</button>
         </div>
@@ -1365,17 +1368,18 @@ function Hud({
         <p className="hud-text">
           <b>Qué cambia con Jev:</b> la regla es una fórmula fija; Jev recibe el estado completo (detenidos, pasajeros, espera más larga, quién llega en 10 s, si la cuadra de salida está llena) y responde una opción con su probabilidad en 70–500 ms. Si la probabilidad baja de {num(JEV_MIN_CONFIDENCE * 100, 0)} %, decide la regla. En esta simulación la política que responde es local: a veces gana la regla y a veces no. En un experimento público, Jev real quedó apenas por delante de una regla de presión máxima (24,2 s frente a 25,1 s de espera media).
         </p>
+        <p className="hud-text">
+          <b>Por qué no un chat:</b> un modelo de lenguaje general (ChatGPT, Claude u otro) redacta su respuesta en texto y, con consultas grandes, tarda segundos; el semáforo necesita decidir cada segundo. Jev solo elige entre opciones y TypeSafe anuncia que es de 200 a 400 veces más rápido y barato. Es un dato del proveedor que Puriy no ha medido; los {LLM_LATENCY} s del paso 2 son ilustrativos.
+        </p>
         <p className="hud-label">Capa de seguridad</p>
         <ul className="hud-steps-text">
           <li>Verde mínimo {SAFETY.minGreen} s, ámbar {SAFETY.amber} s y todo rojo {SAFETY.allRed} s en cada cambio; nunca dos verdes en conflicto.</li>
           <li>Verde máximo {SAFETY.maxGreen} s: ninguna calle espera sin límite.</li>
           <li>Si fallan los detectores, el cruce vuelve al plan fijo.</li>
         </ul>
-        <div className="hud-legend">
-          {(Object.keys(KINDS) as (keyof typeof KINDS)[]).map((k) => (
-            <span key={k}><i style={{ background: KINDS[k].color }} />{KINDS[k].label}</span>
-          ))}
-        </div>
+        <p className="hud-text">
+          <b>Cómo leer el dibujo:</b> autos, micros (blancos y largos, con franja del color de la ruta), mototaxis (toldo de color) y motos. Las luces de freno encendidas marcan a los detenidos. Personas por vehículo, ilustrativas: auto {num(KINDS.auto.people, 1)}, micro {KINDS.micro.people}, mototaxi {KINDS.mototaxi.people}, moto {num(KINDS.moto.people, 1)}.
+        </p>
         <p className="hud-text">
           Cada vehículo acelera, sigue al de adelante (modelo IDM), frena ante el rojo y no entra al cruce si no cabe al otro lado. Solo movimientos de frente, un carril por sentido. Demanda, mezcla de vehículos y resultados son ilustrativos. Usar Jev real requiere clave de acceso de TypeSafe AI guardada en el servidor, detectores o cámaras en cada acceso, un controlador que acepte órdenes y validación municipal.
         </p>

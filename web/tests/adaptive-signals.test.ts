@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { JEV_MIN_CONFIDENCE, SAFETY, arrivals, createSim } from '../lib/adaptive-signals';
+import { JEV_LATENCY, JEV_MIN_CONFIDENCE, LLM_LATENCY, SAFETY, arrivals, createSim, miniCrossing } from '../lib/adaptive-signals';
 
 describe('semáforos adaptativos (prototipo)', () => {
   it('ambos controles reciben las mismas llegadas y el resultado es reproducible', () => {
@@ -64,5 +64,18 @@ describe('semáforos adaptativos (prototipo)', () => {
         expect(s.snapshot().metrics.avgWait).toBeLessThan(fixed.snapshot().metrics.avgWait);
       }
     }
+  });
+
+  it('explicación: mirar la calle espera menos que el reloj, y responder rápido menos que responder lento', () => {
+    const quick = miniCrossing({ kind: 'ask', latency: JEV_LATENCY }, 16);
+    expect(quick.waitSum).toBeLessThan(miniCrossing({ kind: 'fixed', period: 10 }, 16).waitSum / 2);
+    const fast = miniCrossing({ kind: 'ask', latency: JEV_LATENCY }, 20);
+    const slow = miniCrossing({ kind: 'ask', latency: LLM_LATENCY }, 20);
+    expect(fast.waitSum).toBeLessThan(slow.waitSum / 2);
+    expect(fast.decisions).toBeGreaterThan(slow.decisions * 3);
+    // Mientras espera una respuesta no vuelve a preguntar.
+    const s = miniCrossing({ kind: 'ask', latency: LLM_LATENCY }, 4);
+    expect(s.queries).toHaveLength(1);
+    expect(s.thinking).toBeCloseTo(2, 1);
   });
 });
