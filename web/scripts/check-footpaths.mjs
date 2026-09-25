@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const browser=await chromium.launch();const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://localhost:5173');await page.locator('.app-shell[data-ready="true"]').waitFor();
+await page.getByLabel('Hasta',{exact:true}).fill('aeropuerto');await page.getByRole('option',{name:/Aeropuerto Inca Manco Cápac/}).first().click();
+await page.getByRole('button',{name:'Buscar mi ruta'}).click();
+await page.locator('.journey-card').first().waitFor({timeout:45000});
+await page.screenshot({path:'../artifacts/footpaths-desktop.png',fullPage:true});
+console.log(JSON.stringify({cards:await page.locator('.journey-card').allTextContents(),errors}));
+await browser.close();

@@ -1,0 +1,10 @@
+import {chromium} from '@playwright/test';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:960}});
+page.on('pageerror',e=>console.log('PAGE ERROR',e.message));
+page.on('console',m=>{if(m.type()==='error')console.log('CONSOLE',m.text().slice(0,1200))});
+page.on('requestfailed',r=>console.log('FAILED',r.url(),r.failure()));
+page.on('response',r=>{if(r.status()>=400)console.log('HTTP',r.status(),r.url())});
+await page.goto('http://localhost:5173/');await page.waitForTimeout(7000);
+console.log(await page.locator('.map-canvas').evaluate(e=>({rect:e.getBoundingClientRect().toJSON(),style:getComputedStyle(e).position,canvas:[...e.querySelectorAll('canvas')].map(c=>({w:c.width,h:c.height,rect:c.getBoundingClientRect().toJSON()})),text:e.textContent})));
+await browser.close();

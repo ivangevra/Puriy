@@ -1,0 +1,17 @@
+import { chromium } from '@playwright/test';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const messages=[];
+page.on('console',m=>{if(m.type()==='error')messages.push(m.text())});
+page.on('pageerror',e=>messages.push(e.message));
+await page.goto('http://localhost:5173');
+await page.getByRole('button',{name:'Administrar plataforma',exact:true}).click();
+await page.getByRole('button',{name:'Entrar al panel local'}).click();
+await page.getByRole('button',{name:'Laboratorio de movilidad',exact:true}).click();
+await page.getByRole('button',{name:'Calcular comparación',exact:true}).click();
+await page.getByRole('heading',{name:'Qué cambia con la propuesta'}).waitFor();
+await page.locator('.lab-map').scrollIntoViewIfNeeded();
+await page.waitForFunction(()=>document.querySelector('.lab-map .transit-map')?.getAttribute('data-base-ready')==='true',{},{timeout:20000}).catch(()=>{});
+await page.screenshot({path:'../artifacts/lab-map-check.png'});
+console.log(JSON.stringify({messages,details:await page.locator('.lab-map').evaluate(e=>({map:e.querySelector('.transit-map')?.outerHTML.slice(0,450),canvases:[...e.querySelectorAll('canvas')].map(c=>({width:c.width,height:c.height,rect:c.getBoundingClientRect().toJSON()}))}))},null,2));
+await browser.close();

@@ -1,0 +1,937 @@
+{
+  "version": "PDU-consulta-2026-audit-2026-09-18",
+  "source": "PDU Juliaca 2026–2035 · IMP / Municipalidad Provincial de San Román",
+  "url": "https://munisanroman.gob.pe/web/pdu-plan-de-desarrollo-urbano-juliaca/",
+  "reportedFleet": 1963,
+  "calculatedFleet": 1969,
+  "lines": [
+    {
+      "id": "pdu-line-1",
+      "code": "L-01",
+      "name": "Las Mercedes",
+      "combis": 35,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-2",
+      "code": "L-01B",
+      "name": "Línea 1-B",
+      "combis": 58,
+      "microbuses": 4,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-3",
+      "code": "L-02",
+      "name": "3 de Octubre",
+      "combis": 60,
+      "microbuses": 6,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-4",
+      "code": "L-04",
+      "name": "1ro de Mayo",
+      "combis": 50,
+      "microbuses": 19,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-5",
+      "code": "L-05",
+      "name": "Maravillas",
+      "combis": 40,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-6",
+      "code": "L-07",
+      "name": "4 de Noviembre",
+      "combis": 22,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-7",
+      "code": "L-08",
+      "name": "12 de Octubre",
+      "combis": 37,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-8",
+      "code": "L-09",
+      "name": "San Antonio de Padua La Unión",
+      "combis": 44,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-9",
+      "code": "L-10",
+      "name": "El Amanecer",
+      "combis": 50,
+      "microbuses": 9,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-10",
+      "code": "L-11",
+      "name": "Nuevo Perú",
+      "combis": 50,
+      "microbuses": 16,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-11",
+      "code": "L-14",
+      "name": "Halcones del Sur",
+      "combis": 50,
+      "microbuses": 6,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-12",
+      "code": "L-15",
+      "name": "Trans-Progreso",
+      "combis": 45,
+      "microbuses": 8,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-13",
+      "code": "L-16",
+      "name": "Servicios Perú, renovación indicada",
+      "combis": 20,
+      "microbuses": 6,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-14",
+      "code": "L-18",
+      "name": "Sur Horizonte",
+      "combis": 75,
+      "microbuses": 15,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-15",
+      "code": "L-20",
+      "name": "San Felipe Quispe Chaiña Hermanos",
+      "combis": 67,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-16",
+      "code": "L-21",
+      "name": "Los Pioneros",
+      "combis": 35,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-17",
+      "code": "L-22",
+      "name": "Interoceánica",
+      "combis": 30,
+      "microbuses": 6,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-18",
+      "code": "L-23",
+      "name": "Sagrado Corazón de Jesús",
+      "combis": 90,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-19",
+      "code": "L-24",
+      "name": "Nuevo Revolución",
+      "combis": 40,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-20",
+      "code": "L-27",
+      "name": "La Peruanidad",
+      "combis": 75,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-21",
+      "code": "L-28",
+      "name": "Intercontinental Bony Servís",
+      "combis": 0,
+      "microbuses": 21,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-22",
+      "code": "L-29",
+      "name": "Ccoyllorritty Maravillas",
+      "combis": 6,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-23",
+      "code": "L-30",
+      "name": "Santísima Cruz de Maravillas",
+      "combis": 49,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-24",
+      "code": "L-31",
+      "name": "Speddy Virgen de Copacabana",
+      "combis": 65,
+      "microbuses": 3,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-25",
+      "code": "L-32",
+      "name": "Reyna de los Ángeles Línea 50",
+      "combis": 21,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-26",
+      "code": "L-33",
+      "name": "Gaviotas del Sur",
+      "combis": 40,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-27",
+      "code": "L-34",
+      "name": "El Espinal",
+      "combis": 30,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-28",
+      "code": "L-35",
+      "name": "Travel Correcaminos N.º 40",
+      "combis": 70,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-29",
+      "code": "L-38",
+      "name": "Señor de Pucara",
+      "combis": 55,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-30",
+      "code": "L-39",
+      "name": "Nobleza Internacional",
+      "combis": 55,
+      "microbuses": 5,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-31",
+      "code": "L-40",
+      "name": "Santiago Siluhuara",
+      "combis": 52,
+      "microbuses": 2,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-32",
+      "code": "L-46",
+      "name": "El Rey, nuevo",
+      "combis": 7,
+      "microbuses": 4,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-33",
+      "code": "L-48",
+      "name": "Mártires de Chicago",
+      "combis": 12,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-34",
+      "code": "L-50",
+      "name": "Perlas Doradas",
+      "combis": 25,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-35",
+      "code": "LM-02S",
+      "name": "Los Andes Sur",
+      "combis": 76,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-36",
+      "code": "LM-01",
+      "name": "20 de Mayo",
+      "combis": 57,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-37",
+      "code": "LM-02",
+      "name": "Los Andes",
+      "combis": 87,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-38",
+      "code": "LM-03",
+      "name": "San Román",
+      "combis": 82,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-39",
+      "code": "LM-05",
+      "name": "Señor de Huanca",
+      "combis": 42,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    },
+    {
+      "id": "pdu-line-40",
+      "code": "Sin código impreso",
+      "name": "Perlas de América, nuevo",
+      "combis": 10,
+      "microbuses": 0,
+      "page": "177–178",
+      "table": 95,
+      "validation": "conflict",
+      "evidence": "documental"
+    }
+  ],
+  "places": [
+    {
+      "id": "pdu-place-1",
+      "name": "Mercado San José",
+      "category": "commerce",
+      "groupId": "pdu-place-1",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-2",
+      "name": "Las Mercedes",
+      "category": "commerce",
+      "groupId": "pdu-place-2",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-3",
+      "name": "Túpac Amaru",
+      "category": "commerce",
+      "groupId": "pdu-place-3",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-4",
+      "name": "Óvalo Cusco",
+      "category": "connection",
+      "groupId": "pdu-place-4",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-5",
+      "name": "Centro Comercial N.º 2",
+      "category": "commerce",
+      "groupId": "pdu-place-5",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-6",
+      "name": "Jr. Moquegua",
+      "category": "commerce",
+      "groupId": "pdu-place-6",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-7",
+      "name": "Jr. San Martín",
+      "category": "commerce",
+      "groupId": "complejo-real-plaza",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-8",
+      "name": "Plaza Mayor",
+      "category": "public",
+      "groupId": "pdu-place-8",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-9",
+      "name": "Real Plaza / Plaza Vea",
+      "category": "commerce",
+      "groupId": "complejo-real-plaza",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 184,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-10",
+      "name": "Santa Bárbara",
+      "category": "commerce",
+      "groupId": "pdu-place-10",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-11",
+      "name": "Manco Cápac",
+      "category": "commerce",
+      "groupId": "pdu-place-11",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-12",
+      "name": "Plaza Bolognesi",
+      "category": "public",
+      "groupId": "pdu-place-12",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-13",
+      "name": "Zarumilla",
+      "category": "public",
+      "groupId": "pdu-place-13",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-14",
+      "name": "Pedro Vilcapaza",
+      "category": "commerce",
+      "groupId": "pdu-place-14",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-15",
+      "name": "Plaza San Miguel",
+      "category": "public",
+      "groupId": "pdu-place-15",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-16",
+      "name": "EsSalud La Capilla",
+      "category": "health",
+      "groupId": "pdu-place-16",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    },
+    {
+      "id": "pdu-place-17",
+      "name": "Hospital Carlos Monge Medrano",
+      "category": "health",
+      "groupId": "pdu-place-17",
+      "point": null,
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 185,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Entrada, afluencia y horario pendientes de verificar.",
+      "open": null,
+      "close": null,
+      "days": []
+    }
+  ],
+  "events": [
+    {
+      "id": "pdu-event-1",
+      "name": "Ocupación permanente de vías",
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 191,
+      "days": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "start": null,
+      "end": null,
+      "routeId": null,
+      "extraCycleMinutes": null,
+      "suspended": false,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Tabla 104: 30 registros. Localizar tramos y medir efecto."
+    },
+    {
+      "id": "pdu-event-2",
+      "name": "Feria del lunes",
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 192,
+      "days": [
+        1
+      ],
+      "start": null,
+      "end": null,
+      "routeId": null,
+      "extraCycleMinutes": null,
+      "suspended": false,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Tabla 105: 4,33 km reportados; no equivalen a cierre de vías."
+    },
+    {
+      "id": "pdu-event-3",
+      "name": "Actividad comercial del sábado",
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 193,
+      "days": [
+        6
+      ],
+      "start": null,
+      "end": null,
+      "routeId": null,
+      "extraCycleMinutes": null,
+      "suspended": false,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Tabla 106: 1,4 km reportados. Horario pendiente."
+    },
+    {
+      "id": "pdu-event-4",
+      "name": "Feria del domingo",
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 194,
+      "days": [
+        0
+      ],
+      "start": null,
+      "end": null,
+      "routeId": null,
+      "extraCycleMinutes": null,
+      "suspended": false,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Tabla 107: 5,81 km reportados. Horario pendiente."
+    },
+    {
+      "id": "pdu-event-5",
+      "name": "Festividades",
+      "source": "PDU Juliaca 2026–2035 · consulta pública",
+      "page": 195,
+      "days": [],
+      "start": null,
+      "end": null,
+      "routeId": null,
+      "extraCycleMinutes": null,
+      "suspended": false,
+      "evidence": "documental",
+      "validation": "pending",
+      "notes": "Tabla 108: 3,36 km reportados. Confirmar fechas y tramos."
+    }
+  ],
+  "claims": [
+    {
+      "id": "E01",
+      "reference": "162, tabla 88",
+      "finding": "269,10 km de vías clasificadas; incluye 4,86 km de vía departamental proyectada",
+      "limit": "Jerarquía de corredores; no tratar toda esa longitud como red existente ni como inventario completo de calles locales"
+    },
+    {
+      "id": "E02",
+      "reference": "162-165, tabla 89",
+      "finding": "Cuatro ejes radiales, anillos, puentes y barreras por ríos",
+      "limit": "Conectividad y posibles cuellos de botella; confirmar estado y restricciones de cada conexión"
+    },
+    {
+      "id": "E03",
+      "reference": "165-167, figuras 178-179",
+      "finding": "Reporta 5% de vías en buen estado, 40% regular y 55% malo; superficie: 50% pavimentada, 5% afirmada, 45% trocha",
+      "limit": "Justifica incorporar superficie/estado; porcentajes agregados no permiten asignar velocidades a cada calle"
+    },
+    {
+      "id": "E04",
+      "reference": "169, tablas 90-91",
+      "finding": "Inventario de vías peatonales con tramos; incorpora un proyecto en ejecución",
+      "limit": "Revisar exclusiones vehiculares y accesibilidad. Distinguir existente, observado y proyectado"
+    },
+    {
+      "id": "E05",
+      "reference": "173-175, tabla 92",
+      "finding": "140 empresas y 6.076 mototaxis formales reportados",
+      "limit": "Inventario documental; no equivale a unidades simultáneamente circulando"
+    },
+    {
+      "id": "E06",
+      "reference": "176-177, tabla 94",
+      "finding": "Total declarado de 443 taxis, con registros pendientes de renovación",
+      "limit": "No cargar como flota operativa actual sin reconciliar padrón y vigencia"
+    },
+    {
+      "id": "E07",
+      "reference": "177-178, tabla 95",
+      "finding": "40 filas de empresas/líneas; subtotales declarados 1.808 combis y 155 microbuses, total 1.963",
+      "limit": "Catálogo inicial y composición de flota, con inconsistencia aritmética descrita abajo"
+    },
+    {
+      "id": "E08",
+      "reference": "178, texto",
+      "finding": "Servicio urbano aproximadamente entre 05:00 y 22:00; combis 12-16 sentados y hasta 23 con personas de pie; microbuses hasta 38 según modelo",
+      "limit": "Descripción general; no son horarios por línea ni capacidad habilitada de cada vehículo"
+    },
+    {
+      "id": "E09",
+      "reference": "179, tabla 97 y figura 199",
+      "finding": "40 líneas, empresas y longitud de partida/retorno por separado; mapa conjunto de rutas",
+      "limit": "Tabla insertada como imagen: la extracción de texto omite sus filas. Requiere transcripción/OCR revisada; el mapa no es un archivo de rutas navegables"
+    },
+    {
+      "id": "E10",
+      "reference": "179-180, figura 200",
+      "finding": "Desvíos respecto de itinerarios autorizados por cambios en Jáuregui, Unión y conexiones",
+      "limit": "Separar ruta documentada, observada y propuesta; verificar los segmentos exactos"
+    },
+    {
+      "id": "E11",
+      "reference": "181-182, tabla 98",
+      "finding": "Tramos con congestión a las 07:00, 09:00, 11:00, 14:00, 16:00, 18:00 y 20:00; incluye capturas de mapas de tráfico",
+      "limit": "Priorizar observaciones por hora. No contiene velocidades ni aforos suficientes para calibrar cada tramo"
+    },
+    {
+      "id": "E12",
+      "reference": "183, tabla 99",
+      "finding": "14 intersecciones con saturación, citando informe municipal de 2023; máximo reportado 212,3% en Mariano Núñez/Cusco",
+      "limit": "Referencia histórica para campo; no congestión actual ni reducción esperable por cambiar rutas"
+    },
+    {
+      "id": "E13",
+      "reference": "184-185, tablas 100-101",
+      "finding": "9 registros de atractores mayores y 8 menores",
+      "limit": "Catálogo semilla. Hay solapamientos territoriales/comerciales; no son 17 demandas independientes"
+    },
+    {
+      "id": "E14",
+      "reference": "186-187, tabla 102",
+      "finding": "35 registros de paraderos, principalmente servicios hacia otras localidades",
+      "limit": "Nodos de conexión externa; no inventario de todas las paradas de micros urbanos"
+    },
+    {
+      "id": "E15",
+      "reference": "188, tabla 103",
+      "finding": "14 terminales con dirección, tipo de vehículo, horario y destinos",
+      "limit": "Horarios documentales de terminales; no horarios de paso ni intervalos de cada micro"
+    },
+    {
+      "id": "E16",
+      "reference": "191-192, tabla 104",
+      "finding": "30 entradas de ocupación permanente de vías",
+      "limit": "Revisar ancho útil, accesos y detenciones; geocodificar tramos, no bloquear toda una calle por su nombre"
+    },
+    {
+      "id": "E17",
+      "reference": "192-195, tablas 105-108",
+      "finding": "Ocupación temporal: lunes 4,33 km; sábados 1,4 km; domingos 5,81 km; festividades 3,36 km",
+      "limit": "Escenarios de calendario. Las longitudes no deben sumarse como calles únicas: puede haber solapamiento"
+    },
+    {
+      "id": "E18",
+      "reference": "49, tabla 32",
+      "finding": "Comerciantes aproximados por mercado/plataforma; información municipal 2025",
+      "limit": "Indicador de actividad y trabajo, no afluencia de compradores por hora"
+    },
+    {
+      "id": "E19",
+      "reference": "133, tablas 64-65",
+      "finding": "Matrícula EBR agregada: 55.847 pública + 29.635 privada = 85.482; título/fuente 2023",
+      "limit": "Justifica demanda escolar; no permite ordenar colegios por matrícula individual o turno"
+    },
+    {
+      "id": "E20",
+      "reference": "136-139, tablas 67-71",
+      "finding": "Educación alternativa/especial, superior y salud, con diferentes ámbitos y supuestos",
+      "limit": "Identificar tipos de servicio y fuentes de actualización; no confundir estimación de plazas universitarias con alumnos observados"
+    },
+    {
+      "id": "E21",
+      "reference": "26-27, tablas 10-11",
+      "finding": "Proyecciones de población, población flotante y discusión de distribución residencial",
+      "limit": "Considerar viajes externos y crecimiento como escenarios, sin sustituir el censo por manzana"
+    },
+    {
+      "id": "E22",
+      "reference": "79-85, figuras de inundación",
+      "finding": "Peligro pluvial/fluvial y zonas afectables",
+      "limit": "Escenarios de resiliencia. Peligro espacial no equivale a cierre presente ni probabilidad precisa de interrupción de una calle"
+    },
+    {
+      "id": "E23",
+      "reference": "232-236, anexo 2",
+      "finding": "Comparación de accesibilidad a salud/educación por radios e isócronas; se define como ejercicio conceptual",
+      "limit": "La contribución del proyecto debe añadir viajes completos y servicio operativo; dibujar isócronas por sí solo ya tiene antecedente local"
+    }
+  ]
+}

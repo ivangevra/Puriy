@@ -1,0 +1,506 @@
+{
+  "stops": [
+    {
+      "id": "cusco",
+      "name": "Salida a Cusco",
+      "lon": -70.136,
+      "lat": -15.463,
+      "kind": "demo"
+    },
+    {
+      "id": "sanmiguel",
+      "name": "San Miguel",
+      "lon": -70.123,
+      "lat": -15.47,
+      "kind": "demo"
+    },
+    {
+      "id": "norte",
+      "name": "Av. Circunvalación Norte",
+      "lon": -70.132,
+      "lat": -15.479,
+      "kind": "demo"
+    },
+    {
+      "id": "bolognesi",
+      "name": "Plaza Bolognesi",
+      "lon": -70.129,
+      "lat": -15.488,
+      "kind": "demo"
+    },
+    {
+      "id": "tupac",
+      "name": "Mercado Túpac Amaru",
+      "lon": -70.125,
+      "lat": -15.49,
+      "kind": "demo"
+    },
+    {
+      "id": "plaza",
+      "name": "Plaza de Armas",
+      "lon": -70.134,
+      "lat": -15.493,
+      "kind": "demo"
+    },
+    {
+      "id": "sanroman",
+      "name": "Jr. San Román",
+      "lon": -70.137,
+      "lat": -15.493,
+      "kind": "demo"
+    },
+    {
+      "id": "mercedes",
+      "name": "Mercado Las Mercedes",
+      "lon": -70.144,
+      "lat": -15.493,
+      "kind": "demo"
+    },
+    {
+      "id": "aeropuerto",
+      "name": "Aeropuerto Inca Manco Cápac",
+      "lon": -70.156,
+      "lat": -15.467,
+      "kind": "demo"
+    },
+    {
+      "id": "oeste",
+      "name": "Av. Huancané / Oeste",
+      "lon": -70.15,
+      "lat": -15.484,
+      "kind": "demo"
+    },
+    {
+      "id": "hospital",
+      "name": "Hospital Carlos Monge Medrano",
+      "lon": -70.117,
+      "lat": -15.478,
+      "kind": "demo"
+    },
+    {
+      "id": "huancane",
+      "name": "Salida a Huancané",
+      "lon": -70.109,
+      "lat": -15.473,
+      "kind": "demo"
+    },
+    {
+      "id": "sur",
+      "name": "Av. Circunvalación Sur",
+      "lon": -70.132,
+      "lat": -15.503,
+      "kind": "demo"
+    },
+    {
+      "id": "puno",
+      "name": "Salida a Puno",
+      "lon": -70.128,
+      "lat": -15.518,
+      "kind": "demo"
+    },
+    {
+      "id": "universidad",
+      "name": "Zona universitaria",
+      "lon": -70.151,
+      "lat": -15.508,
+      "kind": "demo"
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal terrestre",
+      "lon": -70.146,
+      "lat": -15.515,
+      "kind": "demo"
+    }
+  ],
+  "routes": [
+    {
+      "id": "D01",
+      "code": "D01",
+      "name": "Corredor norte–sur",
+      "color": "#147d64",
+      "operator": "Operador de demostración",
+      "fare": 1.5,
+      "frequency": [
+        8,
+        12
+      ],
+      "start": "05:00",
+      "end": "22:00",
+      "stops": [
+        "cusco",
+        "norte",
+        "bolognesi",
+        "plaza",
+        "sur",
+        "puno"
+      ],
+      "inbound": [
+        "puno",
+        "sur",
+        "plaza",
+        "bolognesi",
+        "norte",
+        "cusco"
+      ],
+      "geometry": [
+        [
+          -70.136,
+          -15.463
+        ],
+        [
+          -70.132,
+          -15.479
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.128,
+          -15.518
+        ]
+      ],
+      "inbound_geometry": [
+        [
+          -70.128,
+          -15.518
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.132,
+          -15.479
+        ],
+        [
+          -70.136,
+          -15.463
+        ]
+      ],
+      "source": "Red sintética para probar la plataforma; trazos y referencias aproximados.",
+      "verified_at": null,
+      "status": "demo",
+      "observation_period": null,
+      "fleet_coverage": null
+    },
+    {
+      "id": "D02",
+      "code": "D02",
+      "name": "Conexión aeropuerto",
+      "color": "#7362b8",
+      "operator": "Operador de demostración",
+      "fare": 1.5,
+      "frequency": [
+        12,
+        18
+      ],
+      "start": "05:00",
+      "end": "22:00",
+      "stops": [
+        "aeropuerto",
+        "oeste",
+        "mercedes",
+        "sanroman",
+        "plaza",
+        "bolognesi",
+        "tupac"
+      ],
+      "inbound": [
+        "tupac",
+        "bolognesi",
+        "plaza",
+        "sanroman",
+        "mercedes",
+        "oeste",
+        "aeropuerto"
+      ],
+      "geometry": [
+        [
+          -70.156,
+          -15.467
+        ],
+        [
+          -70.15,
+          -15.484
+        ],
+        [
+          -70.144,
+          -15.493
+        ],
+        [
+          -70.137,
+          -15.493
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.125,
+          -15.49
+        ]
+      ],
+      "inbound_geometry": [
+        [
+          -70.125,
+          -15.49
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.137,
+          -15.493
+        ],
+        [
+          -70.144,
+          -15.493
+        ],
+        [
+          -70.15,
+          -15.484
+        ],
+        [
+          -70.156,
+          -15.467
+        ]
+      ],
+      "source": "Red sintética para probar la plataforma; trazos y referencias aproximados.",
+      "verified_at": null,
+      "status": "demo",
+      "observation_period": null,
+      "fleet_coverage": null
+    },
+    {
+      "id": "D03",
+      "code": "D03",
+      "name": "Conexión San Miguel",
+      "color": "#d58332",
+      "operator": "Operador de demostración",
+      "fare": 1.5,
+      "frequency": [
+        10,
+        15
+      ],
+      "start": "05:00",
+      "end": "22:00",
+      "stops": [
+        "sanmiguel",
+        "hospital",
+        "huancane",
+        "tupac",
+        "bolognesi",
+        "plaza",
+        "sur",
+        "terminal"
+      ],
+      "inbound": [
+        "terminal",
+        "sur",
+        "plaza",
+        "bolognesi",
+        "tupac",
+        "huancane",
+        "hospital",
+        "sanmiguel"
+      ],
+      "geometry": [
+        [
+          -70.123,
+          -15.47
+        ],
+        [
+          -70.117,
+          -15.478
+        ],
+        [
+          -70.109,
+          -15.473
+        ],
+        [
+          -70.125,
+          -15.49
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.146,
+          -15.515
+        ]
+      ],
+      "inbound_geometry": [
+        [
+          -70.146,
+          -15.515
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.129,
+          -15.488
+        ],
+        [
+          -70.125,
+          -15.49
+        ],
+        [
+          -70.109,
+          -15.473
+        ],
+        [
+          -70.117,
+          -15.478
+        ],
+        [
+          -70.123,
+          -15.47
+        ]
+      ],
+      "source": "Red sintética para probar la plataforma; trazos y referencias aproximados.",
+      "verified_at": null,
+      "status": "demo",
+      "observation_period": null,
+      "fleet_coverage": null
+    },
+    {
+      "id": "D04",
+      "code": "D04",
+      "name": "Corredor universitario",
+      "color": "#357bbb",
+      "operator": "Operador de demostración",
+      "fare": 1.5,
+      "frequency": [
+        15,
+        20
+      ],
+      "start": "05:00",
+      "end": "22:00",
+      "stops": [
+        "universidad",
+        "terminal",
+        "sur",
+        "plaza",
+        "sanroman",
+        "mercedes",
+        "oeste"
+      ],
+      "inbound": [
+        "oeste",
+        "mercedes",
+        "sanroman",
+        "plaza",
+        "sur",
+        "terminal",
+        "universidad"
+      ],
+      "geometry": [
+        [
+          -70.151,
+          -15.508
+        ],
+        [
+          -70.146,
+          -15.515
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.137,
+          -15.493
+        ],
+        [
+          -70.144,
+          -15.493
+        ],
+        [
+          -70.15,
+          -15.484
+        ]
+      ],
+      "inbound_geometry": [
+        [
+          -70.15,
+          -15.484
+        ],
+        [
+          -70.144,
+          -15.493
+        ],
+        [
+          -70.137,
+          -15.493
+        ],
+        [
+          -70.134,
+          -15.493
+        ],
+        [
+          -70.132,
+          -15.503
+        ],
+        [
+          -70.146,
+          -15.515
+        ],
+        [
+          -70.151,
+          -15.508
+        ]
+      ],
+      "source": "Red sintética para probar la plataforma; trazos y referencias aproximados.",
+      "verified_at": null,
+      "status": "demo",
+      "observation_period": null,
+      "fleet_coverage": null
+    }
+  ]
+}

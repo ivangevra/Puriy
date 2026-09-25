@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    environment:
+      POSTGRES_DB: juliaca
+      POSTGRES_USER: juliaca
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U juliaca]
+      interval: 5s
+      retries: 10
+    ports: ["127.0.0.1:5432:5432"]
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://juliaca:${POSTGRES_PASSWORD}@db:5432/juliaca
+      DEMO_MODE: ${DEMO_MODE:-true}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:-}
+      OTP_URL: http://otp:8080/otp/gtfs/v1
+      GPS_PROVIDER_URL: ${GPS_PROVIDER_URL:-}
+      GPS_PROVIDER_TOKEN: ${GPS_PROVIDER_TOKEN:-}
+    depends_on:
+      db: {condition: service_healthy}
+    ports: ["127.0.0.1:8000:8000"]
+  otp:
+    image: opentripplanner/opentripplanner:2.7.0
+    profiles: [routing]
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx2g
+    volumes: ["./otp/data:/var/opentripplanner"]
+    command: ["--load", "--serve"]
+    ports: ["127.0.0.1:8080:8080"]
+volumes:
+  pgdata:

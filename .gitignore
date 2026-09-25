@@ -1,0 +1,31 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.db
+.env
+artifacts/
+otp/data/*
+!otp/data/.gitkeep
+
+.env.local
+web/.env.local
+
+# dependencias y artefactos de build
+node_modules/
+web/.next/
+web/.vinext/
+web/.wrangler/
+web/dist/
+web/test-results/
+test-results/
+playwright-report/
+
+# directorios de trabajo y salidas generadas por agentes
+tmp/
+.codegraph/
+.codex-finalizer-*/
+.playwright-mcp/
+*.log
+
+# temporales de Office
+~$*
