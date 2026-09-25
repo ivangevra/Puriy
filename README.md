@@ -31,6 +31,7 @@ Variables del servidor (`.env`):
 Docker Compose y `npm run dev` leen este archivo. Si ejecutas `uvicorn` directamente, define estas variables en la terminal antes de arrancarlo.
 
 - La cuenta existente `ivangvera201@gmail.com` tiene un permiso administrativo explícito en la base de datos y puede usarlo al iniciar sesión con su contraseña. Una nueva inscripción con ese correo no hereda el permiso. Una sesión de Google verificada de ese correo también puede administrar.
+- `juliaca.db` no se versiona, así que al clonar el repositorio en otra máquina no hay cuentas. Créala o restablécele la contraseña con `.\.venv\Scripts\python.exe -m backend.seed_admin` (pide la clave, mínimo 8 caracteres; también acepta `ADMIN_SEED_PASSWORD`). No imprime la contraseña ni publica recorridos.
 - `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET`: credenciales OAuth de Google. Sin ellas el botón «Google» queda deshabilitado.
 - `PUBLIC_API_URL`: URL pública de la API para el callback de Google (por ejemplo `https://api.midominio.pe`). Vacío usa la del servidor.
 
